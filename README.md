@@ -154,7 +154,6 @@ STL files, STEP source, and the full 70-page PDF build guide are available as a 
 - [Full Build Guide (Blog)](https://omartronics.com/omarm-zero-build-5-dof-robotic-arm-esp32-web-control/)
 - [YouTube Build Video](https://youtu.be/smRG6uzNHag)
 - [OmArTronics Website](https://omartronics.com/)
-- [YouTube Channel](https://youtube.com/@OmArTronics)
 
 ## License
 
