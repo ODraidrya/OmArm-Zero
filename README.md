@@ -163,8 +163,4 @@ This firmware is released under the **MIT License** — see [LICENSE](LICENSE).
 
 ## Author
 
-**Omar Draidrya** — [OmArTronics](https://omartronics.com)
-
----
-
-If you build one, I'd love to see it! Tag [@OmArTronics](https://instagram.com/omartronics) or open a Discussion.
+[OmArTronics](https://omartronics.com)
