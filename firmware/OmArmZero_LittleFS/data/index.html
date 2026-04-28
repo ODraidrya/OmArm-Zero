@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OmArm Zero Controller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.png" type="image/png">
+    <meta name="theme-color" content="#0f1115">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+                    <path d="M2 17L12 22L22 17"></path>
+                    <path d="M2 12L12 17L22 12"></path>
+                </svg>
+                <h1>OmArmZero<span>Control</span></h1>
+            </div>
+            <div class="connection-status">
+                <span id="status-dot" class="status-dot"></span>
+                <span id="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <main>
+            <!-- Left Column: Visual Interface -->
+            <div class="visual-panel">
+                <div class="robot-container">
+                    <img src="OmArm Zero.png" id="robot-img" alt="Robot Arm">
+                    <svg id="lines-svg"></svg>
+                    <!-- Joint Markers -->
+                    <div class="joint-marker" id="m-j1" style="bottom: 12%; left: 50%;"></div>
+                    <div class="joint-marker" id="m-j2" style="bottom: 20%; left: 50%;"></div>
+                    <div class="joint-marker" id="m-j3" style="bottom: 50%; left: 50%;"></div>
+                    <div class="joint-marker" id="m-j4" style="bottom: 73%; left: 50%;"></div>
+                    <div class="joint-marker" id="m-j5" style="bottom: 81%; left: 50%;"></div>
+                    <div class="joint-marker" id="m-j6" style="bottom: 88%; left: 50%;"></div>
+                </div>
+            </div>
+
+            <!-- Center Column: Sliders -->
+            <div class="sliders-column">
+                <div class="panel-header">
+                    <h2>Manual Control</h2>
+                    <button id="home-btn" class="btn sm-btn">HOME</button>
+                </div>
+
+                <!-- Global Speed Control -->
+                <div class="control-group" style="border-left: 3px solid var(--accent-color);">
+                    <div class="label-row">
+                        <label>Motor Speed</label>
+                        <span class="value-display" id="speed-val">50%</span>
+                    </div>
+                    <input type="range" id="motor-speed" min="1" max="100" value="50">
+                </div>
+
+                <!-- Joint Sliders -->
+                <div class="control-group" id="grp-j6">
+                    <div class="label-row"><label>Gripper (J6)</label><span class="value-display" id="val-j6">0°</span>
+                    </div>
+                    <input type="range" id="j6" min="0" max="180" value="0">
+                </div>
+                <div class="control-group" id="grp-j5">
+                    <div class="label-row"><label>Wrist Roll (J5)</label><span class="value-display"
+                            id="val-j5">0°</span></div>
+                    <input type="range" id="j5" min="0" max="180" value="0">
+                </div>
+                <div class="control-group" id="grp-j4">
+                    <div class="label-row"><label>Wrist Pitch (J4)</label><span class="value-display"
+                            id="val-j4">0°</span></div>
+                    <input type="range" id="j4" min="0" max="180" value="0">
+                </div>
+                <div class="control-group" id="grp-j3">
+                    <div class="label-row"><label>Elbow (J3)</label><span class="value-display" id="val-j3">0°</span>
+                    </div>
+                    <input type="range" id="j3" min="0" max="180" value="0">
+                </div>
+                <div class="control-group" id="grp-j2">
+                    <div class="label-row"><label>Shoulder (J2)</label><span class="value-display"
+                            id="val-j2">0°</span></div>
+                    <input type="range" id="j2" min="0" max="180" value="0">
+                </div>
+                <div class="control-group" id="grp-j1">
+                    <div class="label-row"><label>Base (J1)</label><span class="value-display" id="val-j1">0°</span>
+                    </div>
+                    <input type="range" id="j1" min="0" max="180" value="0">
+                </div>
+            </div>
+
+            <!-- Right Column: Sequence Editor -->
+            <div class="sequence-column">
+                <div class="sequence-panel">
+                    <div class="panel-header">
+                        <h2>Sequence Editor</h2>
+                        <div class="panel-actions">
+                            <button id="import-btn" class="btn icon-btn" title="Import JSON">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </button>
+                            <button id="export-btn" class="btn icon-btn" title="Export JSON">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </button>
+                            <input type="file" id="file-input" accept=".json" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="sequence-controls">
+                        <button id="add-pose-btn" class="btn secondary-btn">+ Add Current Pose</button>
+                        <div class="playback-controls">
+                            <button id="play-btn" class="btn success-btn">Play Sequence</button>
+                            <button id="stop-btn" class="btn danger-btn" disabled>Stop</button>
+                        </div>
+                    </div>
+
+                    <div class="sequence-list" id="sequence-list">
+                        <div class="empty-state">No poses added yet</div>
+                    </div>
+
+                    <div class="speed-control">
+                        <div class="speed-header">
+                            <label>Playback Delay</label>
+                            <span class="value-display" id="delay-val">1000 ms</span>
+                        </div>
+                        <input type="range" id="play-delay" min="100" max="3000" step="100" value="1000">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>OmArTronics &copy; 2025</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(e => console.log('SW failed'));
+        }
+    </script>
+</body>
+
+</html>

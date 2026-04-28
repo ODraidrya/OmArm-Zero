@@ -1,0 +1,24 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Arduino build
+build/
+*.elf
+*.bin
+*.hex
+
+# Compiled objects
+*.o
+*.d
+
+# Python
+__pycache__/
+*.pyc
+.env
