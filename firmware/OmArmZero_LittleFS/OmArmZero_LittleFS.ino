@@ -185,7 +185,15 @@ void setup() {
   delay(100);
 
   // WiFi AP
+  WiFi.mode(WIFI_AP);
   WiFi.softAP(ssid, password);
+  delay(500);  // Wait for AP interface to fully initialize
+
+  // Set static IP (must be AFTER softAP on ESP32)
+  IPAddress local_IP(10, 10, 10, 1);
+  IPAddress gateway(10, 10, 10, 1);
+  IPAddress subnet(255, 255, 255, 0);
+  WiFi.softAPConfig(local_IP, gateway, subnet);
   Serial.println("\n=================================");
   Serial.println("OmArmZero LittleFS Web Server");
   Serial.println("=================================");
